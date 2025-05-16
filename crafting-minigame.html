@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Crafting Mini-Game</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .header {
+            padding: 20px;
+            background-color: #8a5c3c;
+            border-bottom: 5px solid #6a4229;
+            margin-bottom: 30px;
+        }
+        .crafting-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(3, 60px);
+            gap: 5px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .slot {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #8a5c3c;
+            background-color: #5c4229;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .slot img {
+            max-width: 50px;
+            max-height: 50px;
+            pointer-events: none;
+        }
+        .items-palette {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .palette-item {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #8a5c3c;
+            background-color: #5c4229;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .palette-item.selected {
+            border-color: #d4a76a;
+        }
+        #result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            min-height: 24px;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #8a5c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Crafting Mini-Game</h1>
+    </div>
+
+    <div class="items-palette">
+        <div class="palette-item" data-item="plank"><img src="plank-removebg-preview.png" alt="Plank" width="60px" height="60px"></div>
+        <div class="palette-item" data-item="stick"><img src="stick-removebg-preview.png" alt="Stick" width="60px" height="60px"></div>
+        <div class="palette-item" data-item="diamond"><img src="diamond-removebg-preview.png" alt="Diamond" width="60px" height="60px"></div>
+        <div class="palette-item" data-item="netherrack"><img src="netherrack-removebg-preview.png" alt="Netherrack" width="60px" height="60px"></div>
+        <div class="palette-item" data-item="temp"><img src="temp-removebg-preview.png" alt="Netherite" width="60px" height="60px"></div>
+    </div>
+
+    <div class="crafting-grid" id="crafting-grid">
+        <div class="slot" data-index="0"></div>
+        <div class="slot" data-index="1"></div>
+        <div class="slot" data-index="2"></div>
+        <div class="slot" data-index="3"></div>
+        <div class="slot" data-index="4"></div>
+        <div class="slot" data-index="5"></div>
+        <div class="slot" data-index="6"></div>
+        <div class="slot" data-index="7"></div>
+        <div class="slot" data-index="8"></div>
+    </div>
+
+    <button id="craft-btn">Craft</button>
+    <button id="reset-btn">Reset</button>
+
+    <div id="result"></div>
+
+    <a href="crafting.html" class="back-btn">Back to Crafting Guide</a>
+
+    <script>
+        const paletteItems = document.querySelectorAll('.palette-item');
+        const slots = document.querySelectorAll('.slot');
+        const resultDiv = document.getElementById('result');
+        let selectedItem = null;
+
+
+        const recipes = {
+            // Wooden Pickaxe recipe example
+            "plank,plank,plank,null,stick,null,null,stick,null": {
+                name: "Wooden Pickaxe",
+                img: "pick-removebg-preview.png"
+            },
+            // Netherite Upgrade example
+            "diamond,diamond,diamond,diamond,temp,diamond,diamond,netherrack,diamond": {
+                name: "Netherite Upgrade",
+                img: "temp-removebg-preview.png"
+            },
+            // Diamond Pickaxe
+            "diamond,diamond,diamond,null,stick,null,null,stick,null": {
+                name: "Diamond Pickaxe",
+                img: "tools-removebg-preview.png"
+            },
+            // Wooden Sword
+            "null,plank,null,null,plank,null,null,stick,null,": {
+                name: "Wooden Sword",
+                img: "wooden-sword-removebg-preview.png"
+            },
+            // Diamond Sword
+            "null,diamond,null,null,diamond,null,null,stick,null,": {
+                name: "Diamond Sword",
+                img: "diamond-sword-removebg-preview.png"
+            },
+            // Chest
+            "plank,plank,plank,plank,null,plank,plank,plank,plank": {
+                name: "Chest",
+                img: "chest-removebg-preview.png"
+            },
+            //crafting table
+            "plank,plank,null,plank,plank,null,null,null,null": {
+                name: "Crafting Table",
+                img: "crafting-removebg-preview.png"
+            },
+            // Diamond Axe
+            "null,diamond,diamond,null,stick,diamond,null,stick,null": {
+                name: "Diamond Axe",
+                img: "download-removebg-preview.png"
+            },
+        };
+
+        paletteItems.forEach(item => {
+            item.addEventListener('click', () => {
+                paletteItems.forEach(i => i.classList.remove('selected'));
+                if (selectedItem === item.dataset.item) {
+                    selectedItem = null;
+                } else {
+                    selectedItem = item.dataset.item;
+                    item.classList.add('selected');
+                }
+            });
+        });
+
+        slots.forEach(slot => {
+            slot.addEventListener('click', () => {
+                if (selectedItem) {
+                    
+                    if (slot.dataset.item === selectedItem) {
+                        slot.dataset.item = "";
+                        slot.innerHTML = "";
+                    } else {
+                        slot.dataset.item = selectedItem;
+                        slot.innerHTML = `<img src="${selectedItem}-removebg-preview.png" alt="${selectedItem}">`;
+                    }
+                }
+            });
+        });
+
+        document.getElementById('craft-btn').addEventListener('click', () => {
+            let key = "";
+            slots.forEach(slot => {
+                key += (slot.dataset.item || "null") + ",";
+            });
+            key = key.slice(0, -1); // Remove trailing comma
+            console.log("Crafting key:", key); 
+
+            if (recipes[key]) {
+                const crafted = recipes[key];
+                resultDiv.innerHTML = `<img src="${crafted.img}" width="32" alt="${crafted.name}"> → ${crafted.name}`;
+            } else {
+                resultDiv.textContent = "No matching recipe found.";
+            }
+        });
+
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            slots.forEach(slot => {
+                slot.dataset.item = "";
+                slot.innerHTML = "";
+            });
+            resultDiv.textContent = "";
+        });
+    </script>
+</body>
+</html>

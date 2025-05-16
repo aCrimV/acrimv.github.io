@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Minecraft Mobs Guide</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #3a3a7a;
+            border-bottom: 5px solid #2a2a5a;
+            margin-bottom: 30px;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border: 3px solid #3a3a7a;
+            border-radius: 5px;
+        }
+        .back-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #3a3a7a;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        h2 {
+            color: #8d8dff;
+            border-bottom: 2px solid #3a3a7a;
+            padding-bottom: 5px;
+        }
+        .mob-category {
+            margin-bottom: 20px;
+        }
+        .mob-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .mob-card {
+            background-color: #333366;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .mob-image {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>MINECRAFT MOBS GUIDE</h1>
+    </div>
+
+    <div class="content">
+        <h2>Mob Categories</h2>
+        
+        <div class="mob-category">
+            <h3>Passive Mobs</h3>
+        <div class="mob-list">
+                <div class="mob-card">
+                    <img src="cow-removebg-preview.png" alt="Cow" class="mob-image" id="cow-img">
+                    <strong>Cow</strong><br>
+                    Drops: Beef, Leather<br>
+                    Found: Grasslands
+                </div>
+                <div class="mob-card">
+                    <img src="sheep-removebg-preview.png" alt="Sheep" class="mob-image" id="sheep-img">
+                    <strong>Sheep</strong><br>
+                    Drops: Wool, Mutton<br>
+                    Found: Most biomes
+                </div>
+                <div class="mob-card">
+                    <img src="pig-removebg-preview.png" alt="Pig" class="mob-image" id="pig-img">
+                    <strong>Pig</strong><br>
+                    Drops: Porkchop<br>
+                    Found: Most biomes
+                </div>
+                <div class="mob-card">
+                    <img src="chick-removebg-preview.png" alt="Chicken" class="mob-image" id="chicken-img">
+                    <strong>Chicken</strong><br>
+                    Drops: Feathers, Eggs<br>
+                    Found: Most biomes
+                </div>
+            </div>
+        </div>
+
+        <div class="mob-category">
+            <h3>Neutral Mobs</h3>
+            <div class="mob-list">
+                <div class="mob-card">
+                    <strong>Wolf</strong><br>
+                    Drops: None<br>
+                    Behavior: Tameable
+                </div>
+                <div class="mob-card">
+                    <strong>Enderman</strong><br>
+                    Drops: Ender Pearl<br>
+                    Behavior: Hostile when looked at
+                </div>
+                <div class="mob-card">
+                    <strong>Polar Bear</strong><br>
+                    Drops: Fish, Raw Salmon<br>
+                    Behavior: Protective of cubs
+                </div>
+            </div>
+        </div>
+
+        <div class="mob-category">
+            <h3>Hostile Mobs</h3>
+            <div class="mob-list">
+                <div class="mob-card">
+                    <img src="zombie-removebg-preview.png" alt="Zombie" class="mob-image" id="zombie-img">
+                    <strong>Zombie</strong><br>
+                    Drops: Rotten Flesh<br>
+                    Behavior: Attacks players
+                </div>
+                <div class="mob-card">
+                    <img src="skeleton-removebg-preview.png" alt="Skeleton" class="mob-image" id="skeleton-img">
+                    <strong>Skeleton</strong><br>
+                    Drops: Bones, Arrows<br>
+                    Behavior: Ranged attacks
+                </div>
+                <div class="mob-card">
+                    <img src="creeper-removebg-preview.png" alt="Creeper" class="mob-image" id="creeper-img">
+                    <strong>Creeper</strong><br>
+                    Drops: Gunpowder<br>
+                    Behavior: Explodes when close
+                </div>
+                <div class="mob-card">
+                    <img src="spider-removebg-preview.png" alt="Spider" class="mob-image" id="spider-img">
+                    <strong>Spider</strong><br>
+                    Drops: String, Spider Eye<br>
+                    Behavior: Climbs walls
+                </div>
+            </div>
+        </div>
+
+        <h3>Special Mobs</h3>
+        <ul>
+            <li><strong>Villagers:</strong> Trade with players</li>
+            <li><strong>Iron Golem:</strong> Protects villages</li>
+            <li><strong>Wither:</strong> Boss mob</li>
+            <li><strong>Ender Dragon:</strong> Final boss</li>
+        </ul>
+    </div>
+
+    <a href="index.html" class="back-btn">Back to Widgets</a>
+
+    <script>
+        const sounds = {
+            cow: new Audio('Cow_hurt3.mp3.ogg'),
+            sheep: new Audio('Sheep2.ogg'),
+            pig: new Audio('pig_idle1.ogg'),
+            chicken: new Audio('chicken_idle2.ogg')
+        };
+
+        document.getElementById('cow-img').addEventListener('click', () => {
+            sounds.cow.play();
+        });
+        document.getElementById('sheep-img').addEventListener('click', () => {
+            sounds.sheep.play();
+        });
+        document.getElementById('pig-img').addEventListener('click', () => {
+            sounds.pig.play();
+        });
+        document.getElementById('chicken-img').addEventListener('click', () => {
+            sounds.chicken.play();
+        });
+
+        // Hostile mob sounds placeholders
+        sounds.zombie = new Audio('Zombie_idle2.ogg');
+        sounds.skeleton = new Audio('Skeleton_idle1.ogg');
+        sounds.creeper = new Audio('fuse.ogg');
+        sounds.spider = new Audio('Spider_idle4.ogg');
+
+        document.getElementById('zombie-img').addEventListener('click', () => {
+            sounds.zombie.play();
+        });
+        document.getElementById('skeleton-img').addEventListener('click', () => {
+            sounds.skeleton.play();
+        });
+        document.getElementById('creeper-img').addEventListener('click', () => {
+            sounds.creeper.play();
+        });
+        document.getElementById('spider-img').addEventListener('click', () => {
+            sounds.spider.play();
+        });
+    </script>
+</body>
+</html>
