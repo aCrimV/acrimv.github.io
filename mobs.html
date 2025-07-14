@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Minecraft Mobs Guide</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #3a3a7a;
+            border-bottom: 5px solid #2a2a5a;
+            margin-bottom: 30px;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border: 3px solid #3a3a7a;
+            border-radius: 5px;
+        }
+        .back-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #3a3a7a;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        h2 {
+            color: #8d8dff;
+            border-bottom: 2px solid #3a3a7a;
+            padding-bottom: 5px;
+        }
+        .mob-category {
+            margin-bottom: 20px;
+        }
+        .mob-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .mob-card {
+            background-color: #333366;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .mob-image {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body> 
+    <div class="header">
+        <h1>MINECRAFT MOBS GUIDE</h1>
+    </div>
+
+    <div class="content">
+        <h2>Mob Categories</h2>
+        
+        <div class="mob-category">
+            <h3>Passive Mobs</h3>
+        <div class="mob-list">
+                <div class="mob-card">
+                    <img src="cow-removebg-preview.png" alt="Cow" class="mob-image" id="cow-img">
+                    <strong>Cow</strong><br>
+                    Drops: Beef, Leather<br>
+                    Found: Grasslands
+                </div>
+                <div class="mob-card">
+                    <img src="sheep-removebg-preview.png" alt="Sheep" class="mob-image" id="sheep-img">
+                    <strong>Sheep</strong><br>
+                    Drops: Wool, Mutton<br>
+                    Found: Most biomes
+                </div>
+                <div class="mob-card">
+                    <img src="pig-removebg-preview.png" alt="Pig" class="mob-image" id="pig-img">
+                    <strong>Pig</strong><br>
+                    Drops: Porkchop<br>
+                    Found: Most biomes
+                </div>
+            
+            </div>
+        </div>
+
+        <div class="mob-category">
+            <h3>Neutral Mobs</h3>
+            <div class="mob-list">
+                <div class="mob-card">
+                    <img src="480px-Wolf_JE2_BE2-removebg-preview.png" alt="Wolf" class="mob-image" id="wolf-img">
+                    <strong>Wolf</strong><br>
+                    Drops: None<br>
+                    Behavior: Tameable
+                </div>
+                <div class="mob-card">
+                    <img src="480px-Enderman_JE3_BE1-removebg-preview.png" alt="Enderman" class="mob-image" id="enderman-img">
+                    <strong>Enderman</strong><br>
+                    Drops: Ender Pearl<br>
+                    Behavior: Hostile when looked at
+                </div>
+                <div class="mob-card">
+                    <img src="480px-Polar_Bear_JE2_BE2-removebg-preview.png" alt="Polar Bear" class="mob-image" id="polar-bear-img">
+                    <strong>Polar Bear</strong><br>
+                    Drops: Fish, Raw Salmon<br>
+                    Behavior: Protective of cubs
+                </div>
+            </div>
+        </div>
+
+        <div class="mob-category">
+            <h3>Hostile Mobs</h3>
+            <div class="mob-list">
+                <div class="mob-card">
+                    <img src="zombie-removebg-preview.png" alt="Zombie" class="mob-image" id="zombie-img">
+                    <strong>Zombie</strong><br>
+                    Drops: Rotten Flesh<br>
+                    Behavior: Attacks players
+                </div>
+                <div class="mob-card">
+                    <img src="skeleton-removebg-preview.png" alt="Skeleton" class="mob-image" id="skeleton-img">
+                    <strong>Skeleton</strong><br>
+                    Drops: Bones, Arrows<br>
+                    Behavior: Ranged attacks
+                </div>
+                <div class="mob-card">
+                    <img src="creeper-removebg-preview.png" alt="Creeper" class="mob-image" id="creeper-img">
+                    <strong>Creeper</strong><br>
+                    Drops: Gunpowder<br>
+                    Behavior: Explodes when close
+                </div>
+            </div>
+        </div>
+        <div class="mob-category">
+        <h3>Special Mobs</h3>
+        <div class="mob-list">
+            <div class="mob-card">
+                <img src="villager-removebg-preview.png" alt="Villager" class="mob-image" id="villager-img">
+                <strong>Villagers</strong><br>
+                Trade with players
+            </div>
+            <div class="mob-card">
+                <img src="wither-removebg-preview.png" alt="Wither" class="mob-image" id="wither-img">
+                <strong>Wither</strong><br>
+                Boss mob
+            </div>
+            <div class="mob-card">
+                <img src="ender-dragon-removebg-preview.png" alt="Ender Dragon" class="mob-image" id="ender-dragon-img">
+                <strong>Ender Dragon</strong><br>
+                Final boss
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-btn">Home Page</a>
+
+    <script>
+        const sounds = {
+            cow: new Audio('Cow_hurt3.mp3.ogg'),
+            sheep: new Audio('Sheep2.ogg'),
+            pig: new Audio('pig_idle1.ogg'),
+            wolf: new Audio('wolf_idle1.ogg'),
+            enderman: new Audio('enderman_idle5.ogg'),
+            polarBear: new Audio('polar_bear_roar3.ogg'),
+            villager: new Audio('villager_accept2.ogg'),
+            wither: new Audio('wither_idle1.ogg'),
+            dragon: new Audio('ender_dragon_idle1.ogg'),
+        };
+
+        document.getElementById('cow-img').addEventListener('click', () => {
+            sounds.cow.play();
+        });
+        document.getElementById('sheep-img').addEventListener('click', () => {
+            sounds.sheep.play();
+        });
+        document.getElementById('pig-img').addEventListener('click', () => {
+            sounds.pig.play();
+        });
+        document.getElementById('wolf-img').addEventListener('click', () => {
+            sounds.wolf.play();
+        });
+        document.getElementById('enderman-img').addEventListener('click', () => {
+            sounds.enderman.play();
+        });
+        document.getElementById('polar-bear-img').addEventListener('click', () => {
+            sounds.polarBear.play();
+        });
+        document.getElementById('villager-img').addEventListener('click', () => {
+            sounds.villager.play();
+        });
+        document.getElementById('wither-img').addEventListener('click', () => {
+            sounds.wither.play();
+        });
+        document.getElementById('ender-dragon-img').addEventListener('click', () => {
+            sounds.dragon.play();
+        });
+
+        sounds.zombie = new Audio('Zombie_idle2.ogg');
+        sounds.skeleton = new Audio('Skeleton_idle1.ogg');
+        sounds.creeper = new Audio('fuse.ogg');
+
+        document.getElementById('zombie-img').addEventListener('click', () => {
+            sounds.zombie.play();
+        });
+        document.getElementById('skeleton-img').addEventListener('click', () => {
+            sounds.skeleton.play();
+        });
+        document.getElementById('creeper-img').addEventListener('click', () => {
+            sounds.creeper.play();
+        });
+    </script>
+</body>
+</html>
