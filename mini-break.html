@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mini Block Breaking Game</title>
+<style>
+  body {
+    font-family: 'Courier New', monospace;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 10px 15px;
+  }
+  .back-btn {
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+    padding: 10px;
+    text-align: center;
+    background-color: #4a4a4a;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  h1 {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    position: absolute;
+  }
+  p {
+    font-size: 1em;
+    margin: 10px 0 0 0;
+    text-align: center;
+    position: absolute;
+    top: 60px;
+    margin-bottom: 10px;
+    
+  }
+  #game-container {
+    width: 1290px;
+    height: 600px;
+    margin: 10px 0 0 0;
+    background-color: #2a2a2a;
+    border: 3px solid #4a4a4a;
+    border-radius: 5px;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+  }
+  #timer-score {
+    display: absolute;
+    justify-content: space-between;
+    font-size: 1.2em;
+    margin: 10px 0 0 0;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    color: #f0f0f0;
+    background-color: #3a3a3a;
+    position: absolute;
+    right: 19px;
+  }
+  #tools {
+    width: 60px;
+    display: absolute;
+    flex-direction: column;
+    gap: 19px;
+    position: absolute;
+    left: 10px;
+    top: 200px;
+  }
+  #blocks {
+    display: grid;
+    width: 960px;
+    height: 400px;
+    grid-template-columns: repeat(12, 70px);
+    grid-template-rows: repeat(8, 70px);
+    gap: 8px;
+    justify-content: center;
+    margin: 10px 0 0 0;
+    left: 250px;
+    flex-grow: 1;
+    position: absolute;
+    right: 10px;
+    top: 150px
+  }
+  .item {
+    background-color: #3a3a3a;
+    border-radius: 8px;
+    padding: 0;
+    margin: 10px 0 0 0;
+    cursor: pointer;
+    user-select: none;
+    min-width: 50px;
+    height: 50px;
+    text-align: center;
+    font-weight: bold;
+    transition: border-color 0.3s, background-color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .item.selected {
+    border-color: #28a745;
+    background-color: #4a7a4a;
+  }
+  .item.broken {
+    background-color: #2a2a2a;
+    color: #721c24;
+    cursor: default;
+    text-decoration: line-through;
+  }
+  #message {
+    text-align: center;
+    margin: 0 10px 0 0;
+    padding: 10px;
+    font-size: 1em;
+    min-height: 24px;
+    position: absolute;
+    top: 100px;
+  }
+  img.tool-img, img.block-img {
+    max-width: 40px;
+    max-height: 40px;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<div id="game-container">
+  <h1>Mini Block Breaking Game</h1>
+  <p style="text-align:center;">Select a tool, then click a block to try breaking it!</p>
+
+  <div id="timer-score">
+    <div id="timer">Time 0s</div>
+    <div id="score"></div>
+  </div>
+
+  <div id="tools">
+    <!-- alat -->
+  </div>
+
+
+  <div id="blocks">
+    <!-- blokny -->
+  </div>
+
+  <div id="message"></div>
+</div>
+
+<script>
+  const tools = [
+    { name: 'Pickaxe', img: 'tools-removebg-preview.png' },
+    { name: 'Axe', img: 'axe.png' },
+    { name: 'Shovel', img: 'shovel.png' }, 
+    { name: 'Hoe', img: 'hoe.png' }
+    ];
+
+  const blockTypes = [
+    { name: 'Stone', requiredTool: 'Pickaxe', img: 'stone-removebg-preview.png' },
+    { name: 'Wood', requiredTool: 'Axe', img: 'plank-removebg-preview.png' },
+    { name: 'Dirt', requiredTool: 'Shovel', img: 'dirt.png' },
+    { name: 'Haybale', requiredTool: 'Hoe', img: 'haybale.png' }
+  ];
+
+  const gridSize = 8;
+  let blocks = [];
+
+  let selectedTool = null;
+  let score = 0;
+  let timer = 0;
+  let timerInterval = null;
+
+  const toolsDiv = document.getElementById('tools');
+  const blocksDiv = document.getElementById('blocks');
+  const messageDiv = document.getElementById('message');
+
+  function generateBlocks() {
+    blocks = [];
+    for (let i = 0; i < gridSize * gridSize; i++) {
+      const randomBlock = blockTypes[Math.floor(Math.random() * blockTypes.length)];
+      blocks.push({ ...randomBlock, broken: false });
+    }
+  }
+
+  function renderTools() {
+    toolsDiv.innerHTML = '';
+    tools.forEach(tool => {
+      const toolDiv = document.createElement('div');
+      toolDiv.className = 'item';
+      if (selectedTool === tool.name) {
+        toolDiv.classList.add('selected');
+      }
+      const img = document.createElement('img');
+      img.src = tool.img;
+      img.alt = tool.name;
+      img.className = 'tool-img';
+      toolDiv.appendChild(img);
+      toolDiv.onclick = () => selectTool(toolDiv, tool.name);
+      toolsDiv.appendChild(toolDiv);
+    });
+  }
+
+  function renderBlocks() {
+    blocksDiv.innerHTML = '';
+    blocks.forEach((block, index) => {
+      const blockDiv = document.createElement('div');
+      blockDiv.className = 'item';
+      if (block.broken) {
+        blockDiv.classList.add('broken');
+        blockDiv.textContent = '';
+      } else {
+        const img = document.createElement('img');
+        img.src = block.img;
+        img.alt = block.name;
+        img.className = 'block-img';
+        blockDiv.appendChild(img);
+      }
+      blockDiv.onclick = () => tryBreakBlock(block, blockDiv, index);
+      blocksDiv.appendChild(blockDiv);
+    });
+  }
+
+  function selectTool(toolDiv, tool) {
+    if (selectedTool === tool) {
+      // Deselect tool without resetting game or stopping timer
+      selectedTool = null;
+      renderTools();
+      messageDiv.textContent = 'No tool selected';
+      return;
+    } else {
+      selectedTool = tool;
+      if (!timerInterval) {
+        startTimer();
+      }
+    }
+    renderTools();
+    messageDiv.textContent = selectedTool ? `Selected tool: ${selectedTool}` : 'No tool selected';
+  }
+
+  function tryBreakBlock(block, blockDiv, index) {
+    if (!selectedTool) {
+      messageDiv.textContent = 'Please select a tool first.';
+      return;
+    }
+    if (block.broken) {
+      messageDiv.textContent = `${block.name} is already broken.`;
+      return;
+    }
+    if (block.requiredTool === selectedTool) {
+      blocks[index].broken = true;
+      score++;
+      messageDiv.textContent = `Success! You broke the ${block.name} with the ${selectedTool}. Score: ${score}`;
+      renderBlocks();
+    } else {
+      messageDiv.textContent = `Failed! The ${selectedTool} cannot break ${block.name}. Try another tool.`;
+    }
+  }
+
+  function startTimer() {
+    timerInterval = setInterval(() => {
+      timer++;
+      if (timer >= 30) {
+        stopTimer();
+        // Show final score when timer stops
+        messageDiv.textContent = `Time's up! Final Score: ${score}`;
+        setTimeout(() => {
+          resetGame();
+        }, 3000); // Reset game after 3 seconds
+      }
+      document.getElementById('timer').textContent = `Time: ${timer}s`;
+    }, 1000);
+  }
+  
+  // Moved inside DOMContentLoaded to avoid redeclaration errors
+  document.addEventListener('DOMContentLoaded', () => {
+    const messageDiv = document.getElementById('message');
+    messageDiv.style.minHeight = '24px';
+    messageDiv.style.transition = 'none';
+    renderLeaderboard();
+  });
+  
+  function stopTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+
+  function resetGame() {
+    updateLeaderboard(score);
+    score = 0;
+    timer = 0;
+    generateBlocks();
+    blocks[60].broken = true;
+    blocks[61].broken = true;
+    blocks[62].broken = true;
+    blocks[63].broken = true;
+
+    renderBlocks();
+    document.getElementById('score').textContent = `Score: ${score}`;
+    document.getElementById('timer').textContent = `Time: ${timer}s`;
+    messageDiv.textContent = 'Select a tool to start.';
+  }
+  
+  // Initial render
+  generateBlocks();
+  blocks[60].broken = true;
+  blocks[61].broken = true;
+  blocks[62].broken = true;
+  blocks[63].broken = true;
+  renderTools();
+  renderBlocks();
+  messageDiv.textContent = 'Select a tool to start.';
+</script>
+<a href="tools.html" class="back-btn">Home Page</a>
+</div>
+</body>
+</html>
