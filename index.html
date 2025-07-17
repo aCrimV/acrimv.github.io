@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Minecraft Widgets Collection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Minecraft&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: 'Minecraft', sans-serif;
+            background-image: url('background.png');
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background-color: #3b8526 !important;
+            border-bottom: 4px solid #2a631c;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            color: white !important;
+        }
+        
+        .nav-link {
+            color: white !important;
+        }
+        
+        .container {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            border-radius: 4px;
+        }
+        
+        .widget-card {
+            background-color: rgba(30, 30, 30, 0.9);
+            border: 4px solid #3b8526;
+            border-radius: 0;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(59, 133, 38, 0.5);
+        }
+        
+        .widget-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(59, 133, 38, 0.8);
+        }
+        
+        .widget-title {
+            color: #3b8526;
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 0 #000;
+            margin-bottom: 1rem;
+            height: 10px;
+        }
+        
+        .widget-content {
+            color: #e0e0e0;
+        }
+        
+        .btn-minecraft {
+            background-color: #3b8526;
+            color: white;
+            border: 2px solid #2a631c;
+            border-radius: 0;
+            font-family: 'Minecraft', sans-serif;
+        }
+        
+        .btn-minecraft:hover {
+            background-color: #2a631c;
+            color: white;
+        }
+        
+        .header {
+            background-color: rgba(59, 133, 38, 0.7);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 5px solid #2a631c;
+            text-align: center;
+            height: 100px;
+            justify-content: center;
+        }
+        
+        h1 {
+            color: white;
+            text-shadow: 3px 3px 0 #000;
+            font-size: 2.5rem;
+        }
+        
+        .pixel-border {
+            border: 2px solid #3b8526;
+            border-image: repeating-linear-gradient(45deg, #3b8526, #2a631c 10px) 10;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- avigation bar static -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="z-index: 1030;">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="Wiki.png" height="30" class="d-inline-block align-top me-2" alt="Minecraft Logo">
+                <span>Minecraft Wiki</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header pixel-border">
+            <h1>MINECRAFT CATEGORY</h1>
+        </div>
+        
+        <!-- selection categories card -->
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <a href="block.html" class="text-decoration-none">
+                    <div class="card widget-card">
+                        <div class="card-body text-center">
+                            <div class="widget-title">BLOCKS</div>
+                            <img src="grass-removebg-preview.png" height="80" class="mb-3">
+                            <div class="widget-content">
+                                Learn about all Minecraft blocks
+                            </div>
+                            <button class="btn btn-minecraft mt-3">Explore</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <a href="tools.html" class="text-decoration-none">
+                    <div class="card widget-card">
+                        <div class="card-body text-center">
+                            <div class="widget-title">TOOLS</div>
+                            <img src="tools-removebg-preview.png" height="80" class="mb-3">
+                            <div class="widget-content">
+                                Discover tools and their crafting recipes
+                            </div>
+                            <button class="btn btn-minecraft mt-3">Explore</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <a href="mobs.html" class="text-decoration-none">
+                    <div class="card widget-card">
+                        <div class="card-body text-center">
+                            <div class="widget-title">MOBS</div>
+                            <img src="mob.jpeg" height="80" class="mb-3">
+                            <div class="widget-content">
+                                Meet all Minecraft creatures and mobs
+                            </div>
+                            <button class="btn btn-minecraft mt-3">Explore</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <a href="biome.html" class="text-decoration-none">
+                    <div class="card widget-card">
+                        <div class="card-body text-center">
+                            <div class="widget-title">BIOMES</div>
+                            <img src="biome-removebg-preview.png" height="80" class="mb-3">
+                            <div class="widget-content">
+                                Explore different biomes and their features
+                            </div>
+                            <button class="btn btn-minecraft mt-3">Explore</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <a href="crafting.html" class="text-decoration-none">
+                    <div class="card widget-card">
+                        <div class="card-body text-center">
+                            <div class="widget-title">CRAFTING</div>
+                            <img src="crafting-removebg-preview.png" height="80" class="mb-3">
+                            <div class="widget-content">
+                                Master the crafting system and recipes
+                            </div>
+                            <button class="btn btn-minecraft mt-3">Explore</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <a href="strc.html" class="text-decoration-none">
+                    <div class="card widget-card">
+                        <div class="card-body text-center">
+                            <div class="widget-title">STRUCTURES</div>
+                            <img src="pillar-removebg-preview.png" height="80" class="mb-3">
+                            <div class="widget-content">
+                                Learn about all Minecraft structures
+                            </div>
+                            <button class="btn btn-minecraft mt-3">Explore</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
